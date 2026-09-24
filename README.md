@@ -221,9 +221,7 @@ flowchart TD
 ### Diagram 2: Evaluation Structure & CI/CD Regression Verdict
 The complete test suite hierarchy: shared pipeline injection, 4-tier evaluation structure (component isolation, RAG triad, safety guardrails, operational ops), Metric Registry categorization (Gates, Guardrails, Info), and automated baseline-vs-candidate regression testing:
 
-<p align="center">
-  <img src="docs/images/eval_architecture.png" alt="Evaluation Structure & CI/CD Regression Verdict" width="950"/>
-</p>
+
 
 <details>
 <summary><b>🔍 View Diagram 2 Flowchart Code (Mermaid)</b></summary>
