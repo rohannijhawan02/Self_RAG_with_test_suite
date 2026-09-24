@@ -162,9 +162,6 @@ In `evals/metric_registry.py`, evaluation metrics are categorized into clear ope
 ### Diagram 1: Full Structure (Query to Output Flow)
 The end-to-end runtime lifecycle of a user query through routing, hybrid retrieval, reranking, LLM filtering, grounded generation, and both reflection loops:
 
-<p align="center">
-  <img src="docs/images/query_to_output.png" alt="Query to Output Flow Diagram" width="520"/>
-</p>
 
 <details>
 <summary><b>🔍 View Diagram 1 Flowchart Code (Mermaid)</b></summary>
@@ -314,9 +311,7 @@ flowchart TD
 ### Diagram 3: Document Working Structure (Ingestion to Retrieval)
 The document processing lifecycle from raw WebVTT subtitle files to dual indexing and runtime hybrid fusion:
 
-<p align="center">
-  <img src="docs/images/document_working_structure.png" alt="Document Working Structure Diagram" width="520"/>
-</p>
+
 
 <details>
 <summary><b>🔍 View Diagram 3 Flowchart Code (Mermaid)</b></summary>
