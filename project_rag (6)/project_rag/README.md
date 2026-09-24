@@ -162,6 +162,13 @@ In `evals/metric_registry.py`, evaluation metrics are categorized into clear ope
 ### Diagram 1: Full Structure (Query to Output Flow)
 The end-to-end runtime lifecycle of a user query through routing, hybrid retrieval, reranking, LLM filtering, grounded generation, and both reflection loops:
 
+<p align="center">
+  <img src="docs/images/query_to_output.png" alt="Query to Output Flow Diagram" width="520"/>
+</p>
+
+<details>
+<summary><b>🔍 View Diagram 1 Flowchart Code (Mermaid)</b></summary>
+
 ```mermaid
 flowchart TD
     UserQuery(["User Query"]) --> DecNode{"0. Decision Node<br/>(LLM Routing: decide_retrieval)"}
@@ -210,11 +217,19 @@ flowchart TD
     FeedbackQ --> CandPool
     AbstainNode --> FinalOut
 ```
+</details>
 
 ---
 
 ### Diagram 2: Evaluation Structure & CI/CD Regression Verdict
-The test suite hierarchy: shared pipeline injection, component isolation, end-to-end RAG Triad, safety gates, operational metrics, and the metric registry decision engine:
+The complete test suite hierarchy: shared pipeline injection, 4-tier evaluation structure (component isolation, RAG triad, safety guardrails, operational ops), Metric Registry categorization (Gates, Guardrails, Info), and automated baseline-vs-candidate regression testing:
+
+<p align="center">
+  <img src="docs/images/eval_architecture.png" alt="Evaluation Structure & CI/CD Regression Verdict" width="950"/>
+</p>
+
+<details>
+<summary><b>🔍 View Diagram 2 Flowchart Code (Mermaid)</b></summary>
 
 ```mermaid
 flowchart TD
@@ -222,7 +237,7 @@ flowchart TD
         Pipeline["Single Pipeline Instance<br/>RagPipeline(fetch_k=10, top_k=5)<br/>(Shared across all evaluations)"]
     end
 
-    subgraph S1["Tier 1: Component Isolation Testing"]
+    subgraph S1["Tier 1: Component Execution Testing"]
         RetrieverEval["eval_retriever.py<br/>eval_retriever_with_reranker.py"]
         RetrieverGoldens[("goldens/retriever_goldens.json")]
         RetrieverGoldens --> RetrieverEval
@@ -256,7 +271,7 @@ flowchart TD
         SafetyEval --> M_Leak["Prompt & PII Leakage Defense"]
     end
 
-    subgraph S4["Tier 4: Operational & Performance Benchmarking"]
+    subgraph S4["Tier 4: Operational Performance Benchmarking"]
         OpsEval["eval_ops.py"]
         OpsEval --> M_Latency["Latency (TTFT, p50, p95, p99)"]
         OpsEval --> M_Cost["Token Usage & Cost (USD)"]
@@ -292,11 +307,19 @@ flowchart TD
         Verdict -- "Quality / Ops Drops Beyond Tolerance" --> V_REV["REVIEW (Exit Code 2)"]
     end
 ```
+</details>
 
 ---
 
 ### Diagram 3: Document Working Structure (Ingestion to Retrieval)
 The document processing lifecycle from raw WebVTT subtitle files to dual indexing and runtime hybrid fusion:
+
+<p align="center">
+  <img src="docs/images/document_working_structure.png" alt="Document Working Structure Diagram" width="520"/>
+</p>
+
+<details>
+<summary><b>🔍 View Diagram 3 Flowchart Code (Mermaid)</b></summary>
 
 ```mermaid
 flowchart TD
@@ -352,6 +375,7 @@ flowchart TD
         CrossEncoder --> FinalContext["Top Reranked Context Chunks<br/>(top_k = 5)"]
     end
 ```
+</details>
 
 ---
 
@@ -362,6 +386,11 @@ project_rag/
 ├── data/                               # Course transcript subtitles (.vtt) across 8 sessions
 │   ├── YT Sandbox   LLM Evals Session 1.vtt
 │   └── ... Session 8.vtt
+├── docs/                               # Documentation assets & diagrams
+│   └── images/
+│       ├── eval_architecture.png        # Evaluation structure & CI/CD workflow diagram
+│       ├── query_to_output.png          # Query to output lifecycle diagram
+│       └── document_working_structure.png # Document ingestion & retrieval diagram
 ├── src/                                # Core RAG Pipeline Implementation
 │   ├── __init__.py
 │   ├── retriever.py                    # VTT parsing, RecursiveCharacterTextSplitter, Chroma & BM25Okapi
